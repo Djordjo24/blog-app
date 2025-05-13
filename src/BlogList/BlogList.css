@@ -1,0 +1,9 @@
+.blogList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+}
+
+.blogList .noBlogs {
+  font-size: 30px;
+}

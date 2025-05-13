@@ -1,0 +1,56 @@
+.postForm {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.postForm .photoFrame {
+  border: 2px dashed #ccc;
+  cursor: pointer;
+  width: 100%;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  color: #999;
+  border-radius: 10px;
+}
+
+#category-select {
+  height: 30px;
+  width: 80px;
+  font-size: 16px;
+  border: none;
+  border-bottom: 1px dashed #000000;
+  outline: none;
+}
+
+.author {
+  font-family: "Imperial Script", cursive;
+}
+
+.postForm input[type="text"] {
+  font-size: 30px;
+  font-weight: bold;
+  border: none;
+  outline: none;
+}
+
+.postForm textarea {
+  font-size: 20px;
+  border: none;
+  outline: none;
+}
+
+.postForm button[type="submit"] {
+  width: 70px;
+  height: 35px;
+  font-size: 15px;
+  background-color: rgb(46, 117, 162);
+  color: #ffff;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
