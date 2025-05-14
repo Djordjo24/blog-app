@@ -5,14 +5,14 @@ import { Link } from "react-router-dom";
 import { Dispatch, SetStateAction, useState } from "react";
 
 interface HeaderProps {
-  searchValue: string;
-  setSearchValue: Dispatch<SetStateAction<string>>;
+  searchValue?: string;
+  setSearchValue?: Dispatch<SetStateAction<string>>;
 }
 
 const Header: React.FC<HeaderProps> = ({ searchValue, setSearchValue }) => {
   const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value);
+    setSearchValue?.(e.target.value);
   };
   const handleSearchClick = () => {
     setIsSearchBarOpen(true);

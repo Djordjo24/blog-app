@@ -15,6 +15,9 @@
   font-size: 18px;
   list-style: none;
   cursor: pointer;
-  width: 50px;
   margin: 0 auto;
+}
+
+.active {
+  font-weight: bold;
 }

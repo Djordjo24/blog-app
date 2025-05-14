@@ -1,15 +1,16 @@
-import { Dispatch, SetStateAction } from "react";
 import "./Sidebar.css";
+import { Dispatch, SetStateAction, useState } from "react";
+import { categories } from "../mockData/mockData.ts";
 
 interface SidebarProps {
   setFilterCategory: Dispatch<SetStateAction<string>>;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ setFilterCategory }) => {
-  const categories = ["life", "music", "sport", "tech", "style", "cinema"];
-
+  const [activeCategory, setActiveCategory] = useState("");
   const handleListItemClick = (cat: string) => {
-    setFilterCategory(cat);
+    setFilterCategory(cat === "show all" ? "" : cat);
+    setActiveCategory(cat);
   };
   return (
     <aside className="sidebar">
@@ -19,7 +20,11 @@ const Sidebar: React.FC<SidebarProps> = ({ setFilterCategory }) => {
 
       <ul>
         {categories.map((cat) => (
-          <li key={cat} onClick={() => handleListItemClick(cat)}>
+          <li
+            key={cat}
+            className={activeCategory === cat ? "active" : ""}
+            onClick={() => handleListItemClick(cat)}
+          >
             {cat.slice(0, 1).toUpperCase() + cat.slice(1)}
           </li>
         ))}

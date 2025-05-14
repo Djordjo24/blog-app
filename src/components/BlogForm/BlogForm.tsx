@@ -3,7 +3,8 @@ import Header from "../Header/Header.tsx";
 import Wrapper from "../Wrapper/Wrapper.tsx";
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { categories } from "../../mockData/mockData.ts";
 
 interface BlogObject {
   id: string;
@@ -15,7 +16,7 @@ interface BlogObject {
   content: string;
 }
 
-const Write = () => {
+const BlogForm = () => {
   const { id } = useParams<{ id: string }>();
   const [image, setImage] = useState<string>("");
   const [category, setCategory] = useState<string>("");
@@ -23,6 +24,7 @@ const Write = () => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!id) return;
@@ -70,9 +72,10 @@ const Write = () => {
     setContent(e.target.value);
   };
 
-  const handlePublishPost = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const blogs = JSON.parse(localStorage.getItem("Blogs") || "[]");
+    const newId = id || uuidv4();
 
     const updatedBlogs = id
       ? blogs.map((blog: BlogObject) =>
@@ -91,7 +94,7 @@ const Write = () => {
       : [
           ...blogs,
           {
-            id: uuidv4(),
+            id: newId,
             image,
             category: category || "life",
             author,
@@ -107,13 +110,15 @@ const Write = () => {
     setCategory("");
     setTitle("");
     setContent("");
+
+    navigate(`/singleBlog/${newId}`);
   };
 
   return (
     <div className="blogForm">
       <Header />
       <Wrapper>
-        <form className="postForm" onSubmit={handlePublishPost}>
+        <form className="postForm" onSubmit={handleSubmit}>
           <div className="photoFrame" onClick={handleImageInputClick}>
             {" "}
             {image ? (
@@ -146,12 +151,13 @@ const Write = () => {
             onChange={handleCategoryChange}
             value={category || "life"}
           >
-            <option value="life">Life</option>
-            <option value="music">Music</option>
-            <option value="sport">Sport</option>
-            <option value="tech">Tech</option>
-            <option value="style">Style</option>
-            <option value="cinema">Cinema</option>
+            {categories
+              .filter((cat) => cat !== "show all")
+              .map((cat) => (
+                <option value={cat} key={cat}>
+                  {cat.slice(0, 1).toUpperCase() + cat.slice(1)}
+                </option>
+              ))}
           </select>
 
           <input
@@ -183,4 +189,4 @@ const Write = () => {
   );
 };
 
-export default Write;
+export default BlogForm;

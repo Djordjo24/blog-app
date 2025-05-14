@@ -13,6 +13,7 @@ interface BlogObject {
   image?: string;
   date: string;
   author: string;
+  category: string;
   title: string;
   content: string;
 }
@@ -61,9 +62,14 @@ const SingleBlog = () => {
           </div>
           <h1>{blog?.title}</h1>
           <div className="postMeta">
-            <h3>
-              Author: <strong>{blog?.author}</strong>
-            </h3>
+            <div>
+              <h3>
+                Author: <strong>{blog?.author}</strong>
+              </h3>
+              <h3>
+                Category: <strong>{blog?.category}</strong>
+              </h3>
+            </div>
             <p>{blog && timeAgo(blog.date)}</p>
           </div>
           <p>
